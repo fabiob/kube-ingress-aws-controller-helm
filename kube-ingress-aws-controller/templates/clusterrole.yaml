@@ -1,9 +1,13 @@
-{{ with .Values.rbac }}
-{{- if .create }}
-apiVersion: rbac.authorization.k8s.io/v1beta1
+{{- if .Values.rbac.create }}
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ .clusterRoleName }}
+  name: {{ .Values.rbac.clusterRoleName }}
+  labels:
+    app.kubernetes.io/managed-by: "Helm"
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 rules:
 - apiGroups: ["extensions"]
   resources: ["ingresses", ]
@@ -14,5 +18,4 @@ rules:
 - apiGroups: [""]
   resources: ["namespaces", "services", "endpoints"]
   verbs: ["get", "list"]
-{{- end }}
 {{- end }}

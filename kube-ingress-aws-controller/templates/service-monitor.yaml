@@ -8,7 +8,7 @@ metadata:
     app: {{ template "kube-ingress-aws-controller.name" . }}
     chart: {{ template "kube-ingress-aws-controller.chart" . }}
     release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    heritage: Tiller
 {{ toYaml .Values.prometheusOperator.labels | indent 4 }}
 spec:
   jobLabel: {{ .Values.prometheusOperator.jobLabel }}
@@ -16,7 +16,7 @@ spec:
       app: {{ template "kube-ingress-aws-controller.name" . }}
       chart: {{ template "kube-ingress-aws-controller.chart" . }}
       release: {{ .Release.Name }}
-      heritage: {{ .Release.Service }}
+      heritage: Tiller
       component: ingress
   namespaceSelector:
     matchNames:

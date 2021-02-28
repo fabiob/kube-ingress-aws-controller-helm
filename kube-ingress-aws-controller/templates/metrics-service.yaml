@@ -8,7 +8,7 @@ metadata:
     app: {{ template "kube-ingress-aws-controller.name" . }}
     chart: {{ template "kube-ingress-aws-controller.chart" . }}
     release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    heritage: Tiller
     component: ingress
 spec:
   ports:
@@ -20,6 +20,6 @@ spec:
     app: "{{ template "kube-ingress-aws-controller.name" . }}"
     chart: {{ template "kube-ingress-aws-controller.chart" . }}
     release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    heritage: Tiller
     component: ingress
 {{ end }}

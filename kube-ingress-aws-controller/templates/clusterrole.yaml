@@ -9,13 +9,41 @@ metadata:
     meta.helm.sh/release-name: {{ .Release.Name }}
     meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 rules:
-- apiGroups: ["extensions"]
-  resources: ["ingresses", ]
-  verbs: ["get", "list"]
-- apiGroups: ["extensions"]
-  resources: ["ingresses/status", ]
-  verbs: ["get", "list", "patch"]
-- apiGroups: [""]
-  resources: ["namespaces", "services", "endpoints"]
-  verbs: ["get", "list"]
+- apiGroups: # only one of extensions, networking.k8s.io is needed depending on the --ingress-api-version flag
+  - extensions
+  - networking.k8s.io
+  resources:
+  - ingresses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups: # only one of extensions, networking.k8s.io is needed depending on the --ingress-api-version flag
+  - extensions
+  - networking.k8s.io
+  resources:
+  - ingresses/status
+  verbs:
+  - patch
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+- apiGroups:
+  - zalando.org
+  resources:
+  - routegroups
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - zalando.org
+  resources:
+  - routegroups/status
+  verbs:
+  - patch
+  - update
 {{- end }}

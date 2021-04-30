@@ -40,6 +40,10 @@ spec:
         image: "{{ .Values.ingressController.image.repository }}:{{ .Values.ingressController.image.tag }}"
         imagePullPolicy: {{ .Values.ingressController.image.pullPolicy }}
         env:
+{{ if .Values.ingressController.customFilters }}
+        - name: CUSTOM_FILTERS
+          value: {{ join " " .Values.ingressController.customFilters }}
+{{ end }}
         - name: AWS_REGION
           value: {{ .Values.ingressController.awsRegion }}
 {{- if or .Values.ingressController.args .Values.prometheusOperator.create }}

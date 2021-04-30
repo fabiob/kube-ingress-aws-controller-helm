@@ -12,6 +12,7 @@ ingressController:
   # if not set kube-ingress-aws-controller won't be able create ALBs at all
   awsRegion: ""
   args: []
+  customFilters: []
   metricsEndpoint:
     name: metrics
     port: 7979
